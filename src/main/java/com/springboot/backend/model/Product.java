@@ -1,5 +1,5 @@
 package com.springboot.backend.model;
 
-public class Vendor {
+public class Product {
 
 }
