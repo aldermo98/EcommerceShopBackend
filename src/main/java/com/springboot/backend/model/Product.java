@@ -66,13 +66,13 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(length = 99, nullable = false)
+	@Column(length = 99, nullable = true)
 	private String productName;
 
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private Integer quantity;
 
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private Double price;
 
 }
