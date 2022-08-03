@@ -1,10 +1,14 @@
 package com.springboot.backend.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -24,21 +28,11 @@ public class Customer {
 	@Column(nullable = false)
 	private double balance;
 	
+	@OneToMany
+	private List<Orders> orders;
 	
-	
-	public Customer() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Customer(Long id, String name, String username, String password, double balance) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.username = username;
-		this.password = password;
-		this.balance = balance;
-	}
+	@OneToOne
+	private CustomerCart customerCart;
 
 	public Long getId() {
 		return id;
@@ -70,11 +64,17 @@ public class Customer {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
-				+ ", balance=" + balance + "]";
+	public List<Orders> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
+	public CustomerCart getCustomerCart() {
+		return customerCart;
+	}
+	public void setCustomerCart(CustomerCart customerCart) {
+		this.customerCart = customerCart;
 	}
 	
 }
