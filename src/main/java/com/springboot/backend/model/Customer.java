@@ -15,9 +15,13 @@ public class Customer {
 	@Column(nullable = false)
 	private String name; 
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
+	private String username;
+	
+	@Column(nullable = false)
 	private String password;
 	
+	@Column(nullable = false)
 	private double balance;
 	
 	
@@ -27,10 +31,11 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(Long id, String name, String password, double balance) {
+	public Customer(Long id, String name, String username, String password, double balance) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.username = username;
 		this.password = password;
 		this.balance = balance;
 	}
@@ -47,6 +52,12 @@ public class Customer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -62,10 +73,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", password=" + password + ", balance=" + balance + "]";
+		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
+				+ ", balance=" + balance + "]";
 	}
-	
-	
-	
 	
 }
