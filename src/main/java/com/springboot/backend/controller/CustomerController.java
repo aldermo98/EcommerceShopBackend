@@ -68,4 +68,17 @@ public class CustomerController {
 		customerRepository.deleteById(id);
 	}
 	
+	//TO-DO
+	/*
+	@GetMapping("/customerLogin")
+	public void customerLogin(){
+	
+	}
+	
+	@GetMapping("/customerSignup")
+	public void customerSignup(){
+	
+	}	  
+	 */
+	
 }
