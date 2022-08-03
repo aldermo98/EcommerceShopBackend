@@ -30,17 +30,13 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/customers")
-	public List<Customer> getAllCustomers(
-		@RequestParam("page") Integer page,
-		@RequestParam("size") Integer size) {
+	public List<Customer> getAllCustomers(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
 	
-	if (page<0) {
-		page = 0;
-	}
-	
-	Pageable pageable=PageRequest.of(page, size);
-	
-	return customerRepository.findAll(pageable).getContent();
+		if (page<0)
+			page = 0;
+		
+		Pageable pageable=PageRequest.of(page, size);
+		return customerRepository.findAll(pageable).getContent();
 	}
 	
 	@GetMapping("/customer/{id}")

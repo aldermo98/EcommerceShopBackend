@@ -61,6 +61,14 @@ public class Product {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
+	public Long getVendorId() {
+		return vendorId;
+	}
+
+	public void vendorId(Long vendorId) {
+		this.vendorId = vendorId;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,5 +82,9 @@ public class Product {
 
 	@Column(nullable = false)
 	private Double price;
+	
+	@Column(nullable = false)
+	private Long vendorId;
+	
 
 }

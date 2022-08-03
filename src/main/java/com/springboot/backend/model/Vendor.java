@@ -72,10 +72,5 @@ public class Vendor {
 		return "Vendor [id=" + id + ", vendorName=" + vendorName + ", password=" + password + ", balance=" + balance
 				+ "]";
 	}
-	
-	
-
-	
-	
 
 }
