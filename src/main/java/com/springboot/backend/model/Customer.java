@@ -1,5 +1,6 @@
 package com.springboot.backend.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,6 +28,14 @@ public class Customer {
 	
 	@Column(nullable = false)
 	private double balance;
+	
+	@Column(nullable = false)
+	private String securityQuestion;
+	
+	@Column(nullable = false)
+	private String securityAnswer;
+	
+	private LocalDate passwordLastReset;
 	
 	@OneToMany
 	private List<Orders> orders;
@@ -63,6 +72,24 @@ public class Customer {
 	}
 	public void setBalance(double balance) {
 		this.balance = balance;
+	}
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+	public LocalDate getPasswordLastReset() {
+		return passwordLastReset;
+	}
+	public void setPasswordLastReset(LocalDate passwordLastReset) {
+		this.passwordLastReset = passwordLastReset;
 	}
 	public List<Orders> getOrders() {
 		return orders;
