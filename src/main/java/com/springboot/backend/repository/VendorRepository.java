@@ -10,6 +10,7 @@ import com.springboot.backend.model.Product;
 import com.springboot.backend.model.Vendor;
 
 public interface VendorRepository extends JpaRepository<Vendor, Long>{
+	
 	@Query("select v from Vendor v where v.vendorName=?1")
 	Vendor findByName(String vendorName);
 	

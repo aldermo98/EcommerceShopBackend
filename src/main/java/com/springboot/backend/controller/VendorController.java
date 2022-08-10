@@ -49,7 +49,7 @@ public class VendorController {
 			existingVendor.setBalance(newVendor.getBalance());
 			vendorRepository.save(existingVendor);
 		}
-		else	
+		else
 			throw new RuntimeException("ID is invalid");
 	}
 	
