@@ -30,13 +30,9 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/customers")
-	public List<Customer> getAllCustomers(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+	public List<Customer> getAllCustomers() {
 	
-		if (page<0)
-			page = 0;
-		
-		Pageable pageable=PageRequest.of(page, size);
-		return customerRepository.findAll(pageable).getContent();
+		return customerRepository.findAll();
 	}
 	
 	@GetMapping("/customer/{id}")
@@ -63,6 +59,13 @@ public class CustomerController {
 		
 	}
 	
+	@PutMapping("/customer/{id}/updateBalance/{price}")
+	public void customerUpdateBalance(@PathVariable("id") Long id,
+			@PathVariable("price") double price) {
+		customerRepository.updateBalance(id, price);
+		
+	}
+	
 	@DeleteMapping("/customer/{id}")
 	public void deleteCustomer(@PathVariable("id") Long id) {
 		customerRepository.deleteById(id);
@@ -74,11 +77,7 @@ public class CustomerController {
 	public void customerLogin(){
 	
 	}
-	
-	@GetMapping("/customerSignup")
-	public void customerSignup(){
-	
-	}	  
+		  
 	 */
 	
 }

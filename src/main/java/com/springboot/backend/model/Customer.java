@@ -1,15 +1,12 @@
 package com.springboot.backend.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -36,12 +33,6 @@ public class Customer {
 	private String securityAnswer;
 	
 	private LocalDate passwordLastReset;
-	
-	@OneToMany
-	private List<Orders> orders;
-	
-	@OneToOne
-	private CustomerCart customerCart;
 
 	public Long getId() {
 		return id;
@@ -90,18 +81,6 @@ public class Customer {
 	}
 	public void setPasswordLastReset(LocalDate passwordLastReset) {
 		this.passwordLastReset = passwordLastReset;
-	}
-	public List<Orders> getOrders() {
-		return orders;
-	}
-	public void setOrders(List<Orders> orders) {
-		this.orders = orders;
-	}
-	public CustomerCart getCustomerCart() {
-		return customerCart;
-	}
-	public void setCustomerCart(CustomerCart customerCart) {
-		this.customerCart = customerCart;
 	}
 	
 }
