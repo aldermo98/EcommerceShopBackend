@@ -1,14 +1,12 @@
 package com.springboot.backend.model;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -28,11 +26,13 @@ public class Customer {
 	@Column(nullable = false)
 	private double balance;
 	
-	@OneToMany
-	private List<Orders> orders;
+	@Column(nullable = false)
+	private String securityQuestion;
 	
-	@OneToOne
-	private CustomerCart customerCart;
+	@Column(nullable = false)
+	private String securityAnswer;
+	
+	private LocalDate passwordLastReset;
 
 	public Long getId() {
 		return id;
@@ -64,17 +64,23 @@ public class Customer {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	public List<Orders> getOrders() {
-		return orders;
+	public String getSecurityQuestion() {
+		return securityQuestion;
 	}
-	public void setOrders(List<Orders> orders) {
-		this.orders = orders;
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
 	}
-	public CustomerCart getCustomerCart() {
-		return customerCart;
+	public String getSecurityAnswer() {
+		return securityAnswer;
 	}
-	public void setCustomerCart(CustomerCart customerCart) {
-		this.customerCart = customerCart;
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+	public LocalDate getPasswordLastReset() {
+		return passwordLastReset;
+	}
+	public void setPasswordLastReset(LocalDate passwordLastReset) {
+		this.passwordLastReset = passwordLastReset;
 	}
 	
 }
