@@ -5,30 +5,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
 public class Product {
-
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Product(Long id, String productName, Integer quantity, Double price) {
-		super();
-		this.id = id;
-		this.productName = productName;
-		this.quantity = quantity;
-		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", productName=" + productName + ", quantity=" + quantity + ", price=" + price
-				+ "]";
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id; 
+	
+	@Column(nullable = false)
+	private String productName;
+	
+	@Column(nullable = false)
+	private Double price;
+	
+	@Column(nullable = false)
+	private Integer quantity;
+	
+	@OneToOne
+	private Category category;
+	
+	@OneToOne
+	private Vendor vendor;
 
 	public Long getId() {
 		return id;
@@ -46,14 +46,6 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
 	public Double getPrice() {
 		return price;
 	}
@@ -62,17 +54,49 @@ public class Product {
 		this.price = price;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	public Integer getQuantity() {
+		return quantity;
+	}
 
-	@Column(length = 99, nullable = true)
-	private String productName;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
-	@Column(nullable = false)
-	private Integer quantity;
+	public Category getCategory() {
+		return category;
+	}
 
-	@Column(nullable = false)
-	private Double price;
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
+	public Vendor getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", productName=" + productName + ", price=" + price + ", quantity=" + quantity
+				+ ", category=" + category + ", vendor=" + vendor + "]";
+	}
+
+	public Product(Long id, String productName, Double price, Integer quantity, Category category, Vendor vendor) {
+		super();
+		this.id = id;
+		this.productName = productName;
+		this.price = price;
+		this.quantity = quantity;
+		this.category = category;
+		this.vendor = vendor;
+	}
+
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+		
 }
