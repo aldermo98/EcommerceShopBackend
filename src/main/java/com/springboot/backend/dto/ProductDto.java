@@ -5,7 +5,6 @@ public class ProductDto {
 	private String name;
 	private Double price;
 	private String cname;
-	private String vname;
 	private Integer quanity;
 	public Integer getQuanity() {
 		return quanity;
@@ -37,11 +36,6 @@ public class ProductDto {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
-	public String getVname() {
-		return vname;
-	}
-	public void setVname(String string) {
-		this.vname = string;
-	}
+	
 	
 }

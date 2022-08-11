@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.backend.dto.ProductDto;
 import com.springboot.backend.model.Category;
 import com.springboot.backend.model.Product;
-import com.springboot.backend.model.Vendor;
 import com.springboot.backend.repository.CategoryRepository;
 import com.springboot.backend.repository.ProductRepository;
 import com.springboot.backend.repository.VendorRepository;
@@ -82,6 +81,20 @@ public class ProductController {
 		});
 		return listDto;
 	}
+	//Get products by vendorId
+		@GetMapping("/product/{vendorId}")
+		public List<Product> getProductsbyVendorId(@PathVariable("vendorId") Long vendorId) {
+			List<Product> list = productRepository.getProductsbyVendorId(vendorId);
+			return list;
+			
+		}
+		@GetMapping("/product/category/{cid}")
+		public List<Product> getProductsByCategoryId(@PathVariable("cid") Long cid){
+			List<Product> list = productRepository.getProductsbyCategoryId(cid);
+			return list;
+		}
+	
+	
 	
 	/* Task: Add the products*/
 	@PostMapping("/product/{cid}/{vid}")
@@ -112,6 +125,8 @@ public class ProductController {
 		return productRepository.save(product);
 	}
 	
+	
+	
 	/* Update the products */
 	@PutMapping("products/{id}")
 	public Product updateProduct(@PathVariable("id") Long id, 
@@ -127,6 +142,8 @@ public class ProductController {
 		else
 			throw new RuntimeException("ID is Invalid!!!");
 	}
+	
+	
 	/* Delete the products */
 	@DeleteMapping("/products/{id}")
 	public void deleteProduct(@PathVariable("id") Long id) {
