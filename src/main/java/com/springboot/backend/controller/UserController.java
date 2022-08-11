@@ -41,7 +41,6 @@ public class UserController {
 		 info.setRole(userDto.getRole());
 
 		 userRepository.save(info); 
-
 	}
 
 	@GetMapping("/login") //username/password
