@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.model.Orders;
@@ -59,8 +60,9 @@ public class VendorController {
 	}
 	
 	@GetMapping("/vendor/{vendorId}/inventory")
-	public List<Product> getInventory(@PathVariable("vendorId") Long vendorId){
-		return vendorRepository.getInventory(vendorId);
+	public List<Product> getInventory(@PathVariable("vendorId") Long vendorId, @RequestParam("filterBy") String filterBy, @RequestParam("queryParam") String queryParam){
+		return (filterBy == null && queryParam == null) ? 
+				vendorRepository.getInventory(vendorId) : vendorRepository.filterInventory(vendorId, filterBy, queryParam);
 	}
 	
 	@GetMapping("/vendor/{vendorId}/order_history")
