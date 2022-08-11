@@ -39,7 +39,6 @@ public class UserController {
 		 info.setSecurityQuestion(userDto.getSecurityQuestion());
 		 info.setSecurityAnswer(userDto.getSecurityAnswer());
 		 info.setRole(userDto.getRole());
-
 		 userRepository.save(info); 
 	}
 
