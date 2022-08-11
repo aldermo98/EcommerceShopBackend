@@ -26,37 +26,35 @@ public class CustomerCartController {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private ProductRepository productRepository;
 
 	@PostMapping("/customer/{cid}/cart")
-	public void postCustomerCart(@PathVariable("cid") Long cid, 
-			@RequestBody CustomerCart customerCart) {
+	public void createCustomerCart(@PathVariable("cid") Long cid, @RequestBody CustomerCart customerCart) {
+		
 		Optional<Customer> optional = customerRepository.findById(cid);
 		if (optional.isPresent()) {
 			customerCart.setCustomer(optional.get());
 			customerCart.setTotalPrice(0);
 			customerCartRepository.save(customerCart);
-		}
-		else
+		} else
 			throw new RuntimeException("Invalid customer id");
 	}
 
 	@GetMapping("/customer/{cid}/cart")
-	public CustomerCart getAllInCart(@PathVariable("cid") Long cid) {
+	public CustomerCart showCart(@PathVariable("cid") Long cid) {
+		
 		Optional<Customer> optional = customerRepository.findById(cid);
 		if (optional.isPresent()) {
 			return customerCartRepository.findByCustomerId(cid);
-		}
-		else
+		} else
 			throw new RuntimeException("Invalid customer id");
 	}
-	
+
 	@PutMapping("/customer/{cid}/cart/{pid}")
-	public void addProductIntoCart(@PathVariable("cid") Long cid,
-			@PathVariable("pid") Long pid) {
-	
+	public void addProductIntoCart(@PathVariable("cid") Long cid, @PathVariable("pid") Long pid) {
+
 		Optional<Product> optional = productRepository.findById(pid);
 		if (optional.isPresent()) {
 			Product product = optional.get();
@@ -66,22 +64,34 @@ public class CustomerCartController {
 			cart.setProducts(productList);
 			cart.setTotalPrice(cart.getTotalPrice() + product.getPrice());
 			customerCartRepository.save(cart);
-		}
-		else
+		} else
 			throw new RuntimeException("Invalid product id");
 	}
 
-	/* TO-DO
-	@PutMapping("/cart/{id}")
-	public Customer updateCustomer(@PathVariable("id") Long id, @RequestBody Customer newCustomer) {
-		return null;
+	@PutMapping("/customer/{cid}/cart/delete/{pid}")
+	public void removeProductFromCart(@PathVariable("cid") Long cid, @PathVariable("pid") Long pid) {
 
+		Optional<Product> optional = productRepository.findById(pid);
+		if (optional.isPresent()) {
+			Product product = optional.get();
+			CustomerCart cart = customerCartRepository.findByCustomerId(cid);
+			List<Product> productList = cart.getProducts();
+			productList.remove(product);
+			cart.setProducts(productList);
+			cart.setTotalPrice(cart.getTotalPrice() - product.getPrice());
+			customerCartRepository.save(cart);
+		} else
+			throw new RuntimeException("Invalid product id");
 	}
 
-	@DeleteMapping("/cart/{id}")
-	public void deleteCustomer(@PathVariable("id") Long id) {
-		customerCartRepository.deleteById(id);
+	@PutMapping("/customer/{cid}/cart/deleteAll")
+	public void removeAllProductsFromCart(@PathVariable("cid") Long cid) {
+
+		CustomerCart cart = customerCartRepository.findByCustomerId(cid);
+		List<Product> productList = null;
+		cart.setProducts(productList);
+		cart.setTotalPrice(0);
+		customerCartRepository.save(cart);
 	}
-	*/
 
 }
