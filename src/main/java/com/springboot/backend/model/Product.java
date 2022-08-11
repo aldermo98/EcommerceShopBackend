@@ -5,30 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
 public class Product {
-
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Product(Long id, String productName, Integer quantity, Double price) {
-		super();
-		this.id = id;
-		this.productName = productName;
-		this.quantity = quantity;
-		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", productName=" + productName + ", quantity=" + quantity + ", price=" + price
-				+ "]";
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id; 
+	
+	@Column(nullable = false)
+	private String productName;
+	
+	@Column(nullable = false)
+	private Double price;
+	
+	@Column(nullable = false)
+	private Integer quantity;
+	
+	@OneToOne
+	private Category category;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -46,6 +45,14 @@ public class Product {
 		this.productName = productName;
 	}
 
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -54,12 +61,12 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public Double getPrice() {
-		return price;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	public Long getVendorId() {
@@ -70,21 +77,35 @@ public class Product {
 		this.vendorId = vendorId;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	
 
-	@Column(length = 99, nullable = true)
-	private String productName;
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", productName=" + productName + ", price=" + price + ", quantity=" + quantity
+				+ ", category=" + category + ", vendorId=" + vendorId + "]";
+	}
 
-	@Column(nullable = false)
-	private Integer quantity;
 
-	@Column(nullable = false)
-	private Double price;
+	public Product(Long id, String productName, Double price, Integer quantity, Category category, Vendor vendor) {
+		super();
+		this.id = id;
+		this.productName = productName;
+		this.price = price;
+		this.quantity = quantity;
+		this.category = category;
+		this.vendorId = vendorId;
+	}
+
+
 	
 	@Column(nullable = false)
 	private Long vendorId;
 	
 
+
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+		
 }
