@@ -73,7 +73,7 @@ public class Product {
 		return vendorId;
 	}
 
-	public void vendorId(Long vendorId) {
+	public void setVendorId(Long vendorId) {
 		this.vendorId = vendorId;
 	}
 
