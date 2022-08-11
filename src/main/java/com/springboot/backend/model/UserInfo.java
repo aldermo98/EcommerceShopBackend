@@ -113,6 +113,7 @@ public class UserInfo {
 		this.passwordLastReset = passwordLastReset;
 	}
 
+	//testing
 	@Column(nullable = false)
 	private String username;
 
