@@ -21,6 +21,20 @@ public class Vendor {
 	
 	@Column(nullable = false)
 	private double balance;
+	
+	@Column(nullable = false)
+	private String securityQuestion;
+	
+	@Column(nullable = false)
+	private String securityAnswer;
+
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
 
 	public Vendor() {
 		super();
@@ -66,16 +80,19 @@ public class Vendor {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+	
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
 
 	@Override
 	public String toString() {
 		return "Vendor [id=" + id + ", vendorName=" + vendorName + ", password=" + password + ", balance=" + balance
 				+ "]";
 	}
-	
-	
-
-	
-	
 
 }

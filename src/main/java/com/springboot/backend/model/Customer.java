@@ -1,5 +1,7 @@
 package com.springboot.backend.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,25 +17,22 @@ public class Customer {
 	@Column(nullable = false)
 	private String name; 
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
+	private String username;
+	
+	@Column(nullable = false)
 	private String password;
 	
+	@Column(nullable = false)
 	private double balance;
 	
+	@Column(nullable = false)
+	private String securityQuestion;
 	
+	@Column(nullable = false)
+	private String securityAnswer;
 	
-	public Customer() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Customer(Long id, String name, String password, double balance) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.balance = balance;
-	}
+	private LocalDate passwordLastReset;
 
 	public Long getId() {
 		return id;
@@ -47,6 +46,12 @@ public class Customer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -59,13 +64,23 @@ public class Customer {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", password=" + password + ", balance=" + balance + "]";
+	public String getSecurityQuestion() {
+		return securityQuestion;
 	}
-	
-	
-	
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+	public LocalDate getPasswordLastReset() {
+		return passwordLastReset;
+	}
+	public void setPasswordLastReset(LocalDate passwordLastReset) {
+		this.passwordLastReset = passwordLastReset;
+	}
 	
 }

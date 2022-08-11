@@ -77,7 +77,7 @@ public class ProductController {
 			dto.setPrice(p.getPrice());
 			dto.setQuantity(p.getQuantity());
 			dto.setCname(p.getCategory().getName());
-			dto.setVname(p.getVendor().getVendorName());
+			//dto.setVname(p.getVendor().getVendorName());
 			listDto.add(dto);
 		});
 		return listDto;
@@ -105,7 +105,7 @@ public class ProductController {
 		
 		/*  Attach category and vendor to the product*/
 		product.setCategory(category);
-		product.setVendor(vendor);
+		//product.setVendor(vendor);
 		
 		/* Save the product in DB*/
 		

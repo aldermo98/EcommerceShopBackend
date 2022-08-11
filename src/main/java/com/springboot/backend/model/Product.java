@@ -27,8 +27,7 @@ public class Product {
 	@OneToOne
 	private Category category;
 	
-	@OneToOne
-	private Vendor vendor;
+	
 
 	public Long getId() {
 		return id;
@@ -69,20 +68,23 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-	public Vendor getVendor() {
-		return vendor;
+	
+	public Long getVendorId() {
+		return vendorId;
 	}
 
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
+	public void vendorId(Long vendorId) {
+		this.vendorId = vendorId;
 	}
+
+	
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", productName=" + productName + ", price=" + price + ", quantity=" + quantity
-				+ ", category=" + category + ", vendor=" + vendor + "]";
+				+ ", category=" + category + ", vendorId=" + vendorId + "]";
 	}
+
 
 	public Product(Long id, String productName, Double price, Integer quantity, Category category, Vendor vendor) {
 		super();
@@ -91,8 +93,15 @@ public class Product {
 		this.price = price;
 		this.quantity = quantity;
 		this.category = category;
-		this.vendor = vendor;
+		this.vendorId = vendorId;
 	}
+
+
+	
+	@Column(nullable = false)
+	private Long vendorId;
+	
+
 
 	public Product() {
 		super();
