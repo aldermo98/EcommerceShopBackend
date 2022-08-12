@@ -30,7 +30,7 @@ public class CustomerCartController {
 	@Autowired
 	private ProductRepository productRepository;
 
-	@PostMapping("/customer/{cid}/cart")
+	@PostMapping("/customer/cart/{cid}")
 	public void createCustomerCart(@PathVariable("cid") Long cid, @RequestBody CustomerCart customerCart) {
 		
 		Optional<Customer> optional = customerRepository.findById(cid);
@@ -42,7 +42,7 @@ public class CustomerCartController {
 			throw new RuntimeException("Invalid customer id");
 	}
 
-	@GetMapping("/customer/{cid}/cart")
+	@GetMapping("/customer/cart/{cid}")
 	public CustomerCart showCart(@PathVariable("cid") Long cid) {
 		
 		Optional<Customer> optional = customerRepository.findById(cid);
@@ -52,7 +52,7 @@ public class CustomerCartController {
 			throw new RuntimeException("Invalid customer id");
 	}
 
-	@PutMapping("/customer/{cid}/cart/{pid}")
+	@PutMapping("/customer/cart/{cid}/{pid}")
 	public void addProductIntoCart(@PathVariable("cid") Long cid, @PathVariable("pid") Long pid) {
 
 		Optional<Product> optional = productRepository.findById(pid);
@@ -68,7 +68,7 @@ public class CustomerCartController {
 			throw new RuntimeException("Invalid product id");
 	}
 
-	@PutMapping("/customer/{cid}/cart/delete/{pid}")
+	@PutMapping("/customer/cart/delete/{cid}/{pid}")
 	public void removeProductFromCart(@PathVariable("cid") Long cid, @PathVariable("pid") Long pid) {
 
 		Optional<Product> optional = productRepository.findById(pid);
@@ -84,7 +84,7 @@ public class CustomerCartController {
 			throw new RuntimeException("Invalid product id");
 	}
 
-	@PutMapping("/customer/{cid}/cart/deleteAll")
+	@PutMapping("/customer/cart/deleteAll/{cid}")
 	public void removeAllProductsFromCart(@PathVariable("cid") Long cid) {
 
 		CustomerCart cart = customerCartRepository.findByCustomerId(cid);
