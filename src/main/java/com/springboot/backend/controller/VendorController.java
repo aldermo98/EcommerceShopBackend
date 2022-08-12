@@ -1,11 +1,8 @@
 package com.springboot.backend.controller;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,11 +64,15 @@ public class VendorController {
 	}
 	
 	@GetMapping("/vendor/{vendorId}/inventory")
-	public List<Product> getInventory(@PathVariable("vendorId") Long vendorId, @RequestParam("filterBy") String filterBy, @RequestParam("queryParam") String queryParam){
+	public List<Product> getInventory(@PathVariable("vendorId") Long vendorId, 
+			@RequestParam(name="filterBy", required=false) String filterBy, 
+			@RequestParam(name="queryParam", required=false) String queryParam){
+		List<Product> ret = new ArrayList<>();
+		ret = vendorRepository.getInventory(vendorId);
 		return (filterBy == null && queryParam == null) ? 
-				vendorRepository.getInventory(vendorId) : vendorRepository.filterInventory(vendorId, filterBy, queryParam);
+				ret : ret.stream().filter(p -> p.getProductName().contains(queryParam)).toList();
 	}
-	
+
 	@GetMapping("/vendor/{vendorId}/order_history")
 	public List<Orders> getOrderHistory(@PathVariable("vendorId") Long vendorId){
 		return vendorRepository.getOrderHistory(vendorId);
