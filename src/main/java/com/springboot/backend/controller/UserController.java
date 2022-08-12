@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.dto.UserDto;
 import com.springboot.backend.dto.UserInfoDto;
+import com.springboot.backend.model.Customer;
 import com.springboot.backend.model.UserInfo;
+import com.springboot.backend.model.Vendor;
 import com.springboot.backend.repository.UserRepository;
+import com.springboot.backend.repository.CustomerRepository;
+import com.springboot.backend.repository.VendorRepository;
+
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:65259/"}) //changes based on angular port
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private VendorRepository vendorRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
@@ -40,6 +52,28 @@ public class UserController {
 		 info.setSecurityAnswer(userDto.getSecurityAnswer());
 		 info.setRole(userDto.getRole());
 		 userRepository.save(info); 
+		 
+		 if(info.getRole().equalsIgnoreCase("customer")){
+			 Customer customer = new Customer();
+			 customer.setName(info.getName());
+			 customer.setPassword(info.getPassword());
+			 customer.setUsername(info.getUsername());
+			 customer.setPasswordLastReset(info.getPasswordLastReset());
+			 customer.setSecurityQuestion(info.getSecurityQuestion());
+			 customer.setSecurityAnswer(info.getSecurityAnswer());
+			customerRepository.save(customer);
+		 }
+		 
+		 if(info.getRole().equalsIgnoreCase("vendor")){
+			 Vendor vendor = new Vendor();
+			 vendor.setVendorName(info.getName());
+			 vendor.setPassword(info.getPassword());
+			 vendor.setVendorName(info.getUsername());
+			 vendor.setPasswordLastReset(info.getPasswordLastReset());
+			 vendor.setSecurityQuestion(info.getSecurityQuestion());
+			 vendor.setSecurityAnswer(info.getSecurityAnswer());
+			vendorRepository.save(vendor);
+		 }
 	}
 
 	@GetMapping("/login") //username/password
