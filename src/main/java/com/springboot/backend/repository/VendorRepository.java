@@ -27,9 +27,6 @@ public interface VendorRepository extends JpaRepository<Vendor, Long>{
 	@Query("select p from Product p where p.vendorId=?1")
 	List<Product> getInventory(Long vendorId);
 	
-	@Query("select p from Product p where p.vendorId=?1 and p.productName=?2")
-	List<Product> filterInventory(Long vendorId, String filterBy, String queryParam);
-	
 	@Query("select o from Orders o where o.vendorId=?1")
 	List<Orders> getOrderHistory(Long vendorId);
 	

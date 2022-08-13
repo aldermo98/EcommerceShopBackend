@@ -1,5 +1,7 @@
 package com.springboot.backend.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +29,8 @@ public class Vendor {
 	
 	@Column(nullable = false)
 	private String securityAnswer;
+	
+	private LocalDate passwordLastReset;
 
 	public String getSecurityAnswer() {
 		return securityAnswer;
@@ -88,11 +92,19 @@ public class Vendor {
 	public void setSecurityQuestion(String securityQuestion) {
 		this.securityQuestion = securityQuestion;
 	}
+	
+	public LocalDate getPasswordLastReset() {
+		return passwordLastReset;
+	}
+	public void setPasswordLastReset(LocalDate passwordLastReset) {
+		this.passwordLastReset = passwordLastReset;
+	}
 
 	@Override
 	public String toString() {
 		return "Vendor [id=" + id + ", vendorName=" + vendorName + ", password=" + password + ", balance=" + balance
 				+ "]";
 	}
+
 
 }
