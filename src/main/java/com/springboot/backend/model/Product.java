@@ -1,10 +1,12 @@
 package com.springboot.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,10 +26,8 @@ public class Product {
 	@Column(nullable = false)
 	private Integer quantity;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Category category;
-	
-	
 
 	public Long getId() {
 		return id;
@@ -62,7 +62,7 @@ public class Product {
 	}
 
 	public Category getCategory() {
-		return category;
+		return this.category;
 	}
 
 	public void setCategory(Category category) {
@@ -70,7 +70,7 @@ public class Product {
 	}
 	
 	public Long getVendorId() {
-		return vendorId;
+		return this.vendorId;
 	}
 
 	public void setVendorId(Long vendorId) {

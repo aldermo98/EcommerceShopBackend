@@ -5,12 +5,12 @@ public class ProductDto {
 	private String name;
 	private Double price;
 	private String cname;
-	private Integer quanity;
-	public Integer getQuanity() {
-		return quanity;
+	private Integer quantity;
+	public Integer getQuantity() {
+		return quantity;
 	}
-	public void setQuantity(Integer quanity) {
-		this.quanity = quanity;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 	public Long getId() {
 		return id;

@@ -1,6 +1,5 @@
 package com.springboot.backend.controller;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,15 +62,17 @@ public class VendorController {
 		vendorRepository.deleteById(vendorId);
 	}
 	
-//	@GetMapping("/vendor/{vendorId}/inventory")
-//	public List<Product> getInventory(@PathVariable("vendorId") Long vendorId, 
-//			@RequestParam(name="filterBy", required=false) String filterBy, 
-//			@RequestParam(name="queryParam", required=false) String queryParam){
-//		List<Product> ret = new ArrayList<>();
-//		ret = vendorRepository.getInventory(vendorId);
-//		return (filterBy == null && queryParam == null) ? 
-//				ret : ret.stream().filter(p -> p.getProductName().contains(queryParam)).toList();
-//	}
+
+	@GetMapping("/vendor/{vendorId}/inventory")
+	public List<Product> getInventory(@PathVariable("vendorId") Long vendorId, 
+			@RequestParam(name="filterBy", required=false) String filterBy, 
+			@RequestParam(name="queryParam", required=false) String queryParam){
+		List<Product> ret = new ArrayList<>();
+		ret = vendorRepository.getInventory(vendorId);
+		return (queryParam == null) ? 
+				ret : ret.stream().filter(p -> p.getProductName().toLowerCase().contains(queryParam.toLowerCase())).toList();
+	}
+
 
 	@GetMapping("/vendor/{vendorId}/order_history")
 	public List<Orders> getOrderHistory(@PathVariable("vendorId") Long vendorId){
