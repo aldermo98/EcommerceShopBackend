@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.springboot.backend.service.CustomerDetailsService;
+import com.springboot.backend.service.MyUserDetailsService;
 
 
 @SuppressWarnings("deprecation")
@@ -22,9 +23,13 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private CustomerDetailsService customerDetailsService;
 	
+	@Autowired
+	private MyUserDetailsService myUserDetailsService;
+	
 	@Override
 	protected void configure(HttpSecurity  http) throws Exception{
 		http.authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/login").authenticated()
 
 			//.antMatchers(HttpMethod.GET, "/products").authenticated()
 			//.antMatchers("/products").authenticated()
@@ -35,6 +40,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 //			.antMatchers("/products").hasAnyAuthority("ADMIN")
 
 			.antMatchers(HttpMethod.GET, "/login").authenticated()
+			.antMatchers(HttpMethod.GET, "/user/username").authenticated()
+			.antMatchers(HttpMethod.GET, "/user/userprofile").authenticated()
 			.anyRequest().permitAll()
 			.and().httpBasic()
 			.and().csrf().disable();
@@ -54,7 +61,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 	private DaoAuthenticationProvider getCustomProvider() {
 		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
 		dao.setPasswordEncoder(getPasswordEncoder());
-		dao.setUserDetailsService(userDetailsService());
+		dao.setUserDetailsService(myUserDetailsService);
 		return dao;
 	}
 
