@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.backend.dto.ProductDto;
 import com.springboot.backend.model.Category;
 import com.springboot.backend.model.Product;
-import com.springboot.backend.model.Vendor;
 import com.springboot.backend.repository.CategoryRepository;
 import com.springboot.backend.repository.ProductRepository;
 import com.springboot.backend.repository.VendorRepository;
@@ -49,22 +48,22 @@ public class ProductController {
 	 * THIS API displays all the info including passwords of vendor 
 	 * 
 	 */
-	@GetMapping("/productsALL")
-	public List<Product> getAllProduct(
-			@RequestParam(name="page", required= false, defaultValue ="0") Integer page,
-			@RequestParam(name="size", required=false, defaultValue ="100") Integer size)
-		{
-			if(page < 0)
-				page=0;
-			Pageable pageable = PageRequest.of(page, size);
+	//@GetMapping("/productsALL")
+	//public List<Product> getAllProduct(
+	//		@RequestParam(name="page", required= false, defaultValue ="0") Integer page,
+	//		@RequestParam(name="size", required=false, defaultValue ="100") Integer size)
+	//	{
+	//		if(page < 0)
+	//			page=0;
+	//		Pageable pageable = PageRequest.of(page, size);
 			
-			Page<Product> p = productRepository.findAll(pageable);
-			long total = p.getTotalElements();
+	//		Page<Product> p = productRepository.findAll(pageable);
+	//		long total = p.getTotalElements();
 			
-			return p.getContent();
+	//		return p.getContent();
 			
 		
-		}
+	//	}
 	
 	@GetMapping("/products")
 	public List<ProductDto> getAllProducts() {
@@ -76,8 +75,8 @@ public class ProductController {
 			dto.setName(p.getProductName());
 			dto.setPrice(p.getPrice());
 			dto.setQuantity(p.getQuantity());
-			dto.setCname(p.getCategory().getName());
-			//dto.setVname(p.getVendor().getVendorName());
+			dto.setCategory(p.getCategory().getName());
+			//dto.setVendor(v.getVendor().getName());
 			listDto.add(dto);
 		});
 		return listDto;
@@ -103,20 +102,22 @@ public class ProductController {
 			@PathVariable("cid") Long cid,
 			@PathVariable("vid") Long vid) {
 		
-		if(cid == -1) {
-			categoryRepository.save(product.getCategory());
-		}
+		/*  Go to repo and fetch category by id*/
+		Optional<Category> optional = categoryRepository.findById(cid);
+		if(!optional.isPresent())
+			throw new RuntimeException("Category ID is Invalid!!");
+		Category category = optional.get();
 		
 		/* go to repo and fetch vendor by vid*/
-		Optional<Vendor> optionalV = vendorRepository.findById(vid);
+		//Optional<Vendor> optionalV = vendorRepository.findById(vid);
 		
-		if(!optionalV.isPresent())
+		if(!optional.isPresent())
 			throw new RuntimeException("Vendor ID is Invalid!!");
 		
-		Vendor vendor = optionalV.get();
+		//Vendor vendor = optionalV.get();
 		
 		/*  Attach category and vendor to the product*/
-		product.setCategory(categoryRepository.findByName(product.getCategory().getName()));
+		product.setCategory(category);
 		//product.setVendor(vendor);
 		
 		/* Save the product in DB*/
@@ -136,7 +137,6 @@ public class ProductController {
 			existingProduct.setProductName(newProduct.getProductName());
 			existingProduct.setQuantity(newProduct.getQuantity());
 			existingProduct.setPrice(newProduct.getPrice());
-			existingProduct.setCategory(newProduct.getCategory());
 			return productRepository.save(existingProduct);
 		}
 		else
