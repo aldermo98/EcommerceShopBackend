@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,7 +71,7 @@ public class VendorController {
 		List<Product> ret = new ArrayList<>();
 		ret = vendorRepository.getInventory(vendorId);
 		return (queryParam == null) ? 
-				ret : ret.stream().filter(p -> p.getProductName().toLowerCase().contains(queryParam.toLowerCase())).toList();
+				ret : ret.stream().filter(p -> p.getProductName().toLowerCase().contains(queryParam.toLowerCase())).collect(Collectors.toList());
 	}
 
 
