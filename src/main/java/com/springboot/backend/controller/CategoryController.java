@@ -29,18 +29,10 @@ public class CategoryController {
 		categoryRepository.save(category);
 	}
 	
-	//API--> Get all  products  by category 
+	//API--> Get all categories 
 	@GetMapping("/category")
 	public List<Category> getAllCategories(){
-		List<Category> list = categoryRepository.findAll();
-		return list;
-	}
-	
-	//API--> Filter products by Category
-	@GetMapping("/category/{name}")
-	public List<Category> getCategoriesByName(@PathVariable("name") String name) {
-		List<Category> list = categoryRepository.findByName(name);
-		return list;
+		return categoryRepository.findAll();
 	}
 	
 	// API to delete by category

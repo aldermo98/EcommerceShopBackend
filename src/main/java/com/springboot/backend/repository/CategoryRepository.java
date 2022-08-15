@@ -10,5 +10,5 @@ import com.springboot.backend.model.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long>{
 	
 	@Query("select c from Category c where c.name=?1")
-	List<Category> findByName(String name);
+	Category findByName(String name);
 }
