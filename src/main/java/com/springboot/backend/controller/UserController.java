@@ -22,7 +22,7 @@ import com.springboot.backend.repository.CustomerRepository;
 import com.springboot.backend.repository.VendorRepository;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:63636/"}) //changes based on angular port
+@CrossOrigin(origins = {"http://localhost:4200/"}) //changes based on angular port
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
@@ -76,6 +76,7 @@ public class UserController {
 	}
 	@GetMapping("/login") //username/password
 	public UserInfoDto login(Principal principal) {
+		System.out.println(principal);
 		String username = principal.getName();
 		UserInfo info = userRepository.getbyUsername(username);
 		UserInfoDto dto = new UserInfoDto();
