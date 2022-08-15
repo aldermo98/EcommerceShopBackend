@@ -30,7 +30,6 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity  http) throws Exception{
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/login").authenticated()
-		.anyRequest().permitAll()
 
 			//.antMatchers(HttpMethod.GET, "/products").authenticated()
 			//.antMatchers("/products").authenticated()
@@ -40,10 +39,10 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 //			.antMatchers("/products").authenticated()
 //			.antMatchers("/products").hasAnyAuthority("ADMIN")
 
-//			.antMatchers(HttpMethod.GET, "/login").authenticated()
-//			.antMatchers(HttpMethod.GET, "/user/username").authenticated()
-//			.antMatchers(HttpMethod.GET, "/user/userprofile").authenticated()
-//			.anyRequest().permitAll()
+			.antMatchers(HttpMethod.GET, "/login").authenticated()
+			.antMatchers(HttpMethod.GET, "/user/username").authenticated()
+			.antMatchers(HttpMethod.GET, "/user/userprofile").authenticated()
+			.anyRequest().permitAll()
 			.and().httpBasic()
 			.and().csrf().disable();
 			
