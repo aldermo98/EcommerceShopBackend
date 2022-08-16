@@ -1,6 +1,5 @@
 package com.springboot.backend.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,151 +17,130 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.backend.dto.ProductDto;
 import com.springboot.backend.model.Category;
 import com.springboot.backend.model.Product;
 import com.springboot.backend.repository.CategoryRepository;
 import com.springboot.backend.repository.ProductRepository;
 import com.springboot.backend.repository.VendorRepository;
 
-@CrossOrigin(origins = {"http://localhost:58910"})
+@CrossOrigin(origins = { "http://localhost:58910" })
 @RestController
 public class ProductController {
-	
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private VendorRepository vendorRepository;
-	
-	
-	
-	/* Task: Get all the products*/
+
+	/* Task: Get all the products */
 	/* Scenario: Browsing all the products of website */
 	/*
-	 * NOTE 
-	 * Do not use this API
-	 * THIS API displays all the info including passwords of vendor 
+	 * NOTE Do not use this API THIS API displays all the info including passwords
+	 * of vendor
 	 * 
 	 */
 	@GetMapping("/products")
-	public List<Product> getAllProduct(
-			@RequestParam(name="page", required= false, defaultValue ="0") Integer page,
-			@RequestParam(name="size", required=false, defaultValue ="100") Integer size)
-		{
-			if(page < 0)
-			page=0;
-			Pageable pageable = PageRequest.of(page, size);
-			
-			Page<Product> p = productRepository.findAll(pageable);
-			long total = p.getTotalElements();
-			
-			return p.getContent();
-			
-		
-		}
-	
-	//@GetMapping("/products")
-	//public List<ProductDto> getAllProducts() {
-		//List<Product> list = productRepository.findAll();
-		//List<ProductDto> listDto =  new ArrayList<>();
-		//list.stream().forEach(p->{
-			//ProductDto dto = new ProductDto();
-			//dto.setId(p.getId());
-			//dto.setName(p.getProductName());
-			//dto.setPrice(p.getPrice());
-			//dto.setQuantity(p.getQuantity());
-			//dto.setCategory(p.getCategory().getName());
-			//dto.setVendor(v.getVendor().getName());
-			//listDto.add(dto);
-		//});
-		//return listDto;
-	//}
-	//Get products by vendorId
-		@GetMapping("/product/{vendorId}")
-		public List<Product> getProductsbyVendorId(@PathVariable("vendorId") Long vendorId) {
-			List<Product> list = productRepository.getProductsbyVendorId(vendorId);
-			return list;
-			
-		}
-		@GetMapping("/product/category/{cid}")
-		public List<Product> getProductsByCategoryId(@PathVariable("cid") Long cid){
-			List<Product> list = productRepository.getProductsbyCategoryId(cid);
-			return list;
-		}
-	
-	
-	
-	/* Task: Add the products*/
+	public List<Product> getAllProduct(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "100") Integer size) {
+		if (page < 0)
+			page = 0;
+		Pageable pageable = PageRequest.of(page, size);
+
+		Page<Product> p = productRepository.findAll(pageable);
+		long total = p.getTotalElements();
+
+		return p.getContent();
+
+	}
+
+	// @GetMapping("/products")
+	// public List<ProductDto> getAllProducts() {
+	// List<Product> list = productRepository.findAll();
+	// List<ProductDto> listDto = new ArrayList<>();
+	// list.stream().forEach(p->{
+	// ProductDto dto = new ProductDto();
+	// dto.setId(p.getId());
+	// dto.setName(p.getProductName());
+	// dto.setPrice(p.getPrice());
+	// dto.setQuantity(p.getQuantity());
+	// dto.setCategory(p.getCategory().getName());
+	// dto.setVendor(v.getVendor().getName());
+	// listDto.add(dto);
+	// });
+	// return listDto;
+	// }
+	// Get products by vendorId
+	@GetMapping("/product/{vendorId}")
+	public List<Product> getProductsbyVendorId(@PathVariable("vendorId") Long vendorId) {
+		List<Product> list = productRepository.getProductsbyVendorId(vendorId);
+		return list;
+
+	}
+
+	@GetMapping("/product/category/{cid}")
+	public List<Product> getProductsByCategoryId(@PathVariable("cid") Long cid) {
+		List<Product> list = productRepository.getProductsbyCategoryId(cid);
+		return list;
+	}
+
+	/* Task: Add the products */
 	@PostMapping("/product/{cid}/{vid}")
-	public Product PostProduct(@RequestBody Product product,
-			@PathVariable("cid") Long cid,
+	public Product PostProduct(@RequestBody Product product, @PathVariable("cid") Long cid,
 			@PathVariable("vid") Long vid) {
-		
-		/*  Go to repo and fetch category by id*/
+
+		/* Go to repo and fetch category by id */
 		Optional<Category> optional = categoryRepository.findById(cid);
-		if(!optional.isPresent())
+		if (!optional.isPresent())
 			throw new RuntimeException("Category ID is Invalid!!");
 		Category category = optional.get();
-		
-		/* go to repo and fetch vendor by vid*/
-		//Optional<Vendor> optionalV = vendorRepository.findById(vid);
-		
-		if(!optional.isPresent())
+
+		/* go to repo and fetch vendor by vid */
+		// Optional<Vendor> optionalV = vendorRepository.findById(vid);
+
+		if (!optional.isPresent())
 			throw new RuntimeException("Vendor ID is Invalid!!");
-		
-		//Vendor vendor = optionalV.get();
-		
-		/*  Attach category and vendor to the product*/
-<<<<<<< HEAD
-		
+
+		// Vendor vendor = optionalV.get();
+
+		/* Attach category and vendor to the product */
+
 		Optional<Category> optionalCat = categoryRepository.findById(cid);
-		if(optionalCat.isPresent()) {
+		if (optionalCat.isPresent()) {
 			product.setCategory(optionalCat.get());
-		}else
+		} else
 			throw new RuntimeException("invalid category id!!");
-		
-=======
+
 		product.setCategory(category);
->>>>>>> 4fffd4c5fa84a93a82d44504397bb72be82d01ce
-		//product.setVendor(vendor);
-		
-		/* Save the product in DB*/
+		// product.setVendor(vendor);
+
+		/* Save the product in DB */
 		product.setVendorId(vid);
 		return productRepository.save(product);
 	}
-	
-	
-	
+
 	/* Update the products */
 	@PutMapping("products/{id}")
-	public Product updateProduct(@PathVariable("id") Long id, 
-			@RequestBody Product newProduct) {
+	public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product newProduct) {
 		Optional<Product> optional = productRepository.findById(id);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			Product existingProduct = optional.get();
 			existingProduct.setProductName(newProduct.getProductName());
 			existingProduct.setQuantity(newProduct.getQuantity());
 			existingProduct.setPrice(newProduct.getPrice());
 			return productRepository.save(existingProduct);
-		}
-		else
+		} else
 			throw new RuntimeException("ID is Invalid!!!");
 	}
-	
-	
+
 	/* Delete the products */
 	@DeleteMapping("/products/{id}")
 	public void deleteProduct(@PathVariable("id") Long id) {
-		productRepository.deleteById(id);;
+		productRepository.deleteById(id);
+		;
 	}
-	
-	
-	
-	
-	
 
 }
