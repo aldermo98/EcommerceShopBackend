@@ -17,4 +17,38 @@ public class Purchases {
 	
 	private double totalPurchase;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public int getCustomerCartId() {
+		return customerCartId;
+	}
+
+	public void setCustomerCartId(int customerCartId) {
+		this.customerCartId = customerCartId;
+	}
+
+	public double getTotalPurchase() {
+		return totalPurchase;
+	}
+
+	public void setTotalPurchase(double totalPurchase) {
+		this.totalPurchase = totalPurchase;
+	}
+	
+	
+
 }
