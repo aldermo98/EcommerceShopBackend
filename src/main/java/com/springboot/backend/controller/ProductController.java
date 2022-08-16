@@ -48,39 +48,39 @@ public class ProductController {
 	 * THIS API displays all the info including passwords of vendor 
 	 * 
 	 */
-	//@GetMapping("/productsALL")
-	//public List<Product> getAllProduct(
-	//		@RequestParam(name="page", required= false, defaultValue ="0") Integer page,
-	//		@RequestParam(name="size", required=false, defaultValue ="100") Integer size)
-	//	{
-	//		if(page < 0)
-	//			page=0;
-	//		Pageable pageable = PageRequest.of(page, size);
+	@GetMapping("/products")
+	public List<Product> getAllProduct(
+			@RequestParam(name="page", required= false, defaultValue ="0") Integer page,
+			@RequestParam(name="size", required=false, defaultValue ="100") Integer size)
+		{
+			if(page < 0)
+			page=0;
+			Pageable pageable = PageRequest.of(page, size);
 			
-	//		Page<Product> p = productRepository.findAll(pageable);
-	//		long total = p.getTotalElements();
+			Page<Product> p = productRepository.findAll(pageable);
+			long total = p.getTotalElements();
 			
-	//		return p.getContent();
+			return p.getContent();
 			
 		
-	//	}
+		}
 	
-	@GetMapping("/products")
-	public List<ProductDto> getAllProducts() {
-		List<Product> list = productRepository.findAll();
-		List<ProductDto> listDto =  new ArrayList<>();
-		list.stream().forEach(p->{
-			ProductDto dto = new ProductDto();
-			dto.setId(p.getId());
-			dto.setName(p.getProductName());
-			dto.setPrice(p.getPrice());
-			dto.setQuantity(p.getQuantity());
-			dto.setCategory(p.getCategory().getName());
+	//@GetMapping("/products")
+	//public List<ProductDto> getAllProducts() {
+		//List<Product> list = productRepository.findAll();
+		//List<ProductDto> listDto =  new ArrayList<>();
+		//list.stream().forEach(p->{
+			//ProductDto dto = new ProductDto();
+			//dto.setId(p.getId());
+			//dto.setName(p.getProductName());
+			//dto.setPrice(p.getPrice());
+			//dto.setQuantity(p.getQuantity());
+			//dto.setCategory(p.getCategory().getName());
 			//dto.setVendor(v.getVendor().getName());
-			listDto.add(dto);
-		});
-		return listDto;
-	}
+			//listDto.add(dto);
+		//});
+		//return listDto;
+	//}
 	//Get products by vendorId
 		@GetMapping("/product/{vendorId}")
 		public List<Product> getProductsbyVendorId(@PathVariable("vendorId") Long vendorId) {

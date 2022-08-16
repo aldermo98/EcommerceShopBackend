@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import com.springboot.backend.model.Orders;
 import com.springboot.backend.model.Product;
 import com.springboot.backend.model.Vendor;
@@ -29,6 +31,7 @@ public class VendorController {
 	public List<Vendor> getAllVendors() {
 		return vendorRepository.findAll();
 	}
+	
 	
 	@GetMapping("/vendor/{vendorId}")
 	public Vendor getVendorById(@PathVariable("vendorId") Long vendorId) {
