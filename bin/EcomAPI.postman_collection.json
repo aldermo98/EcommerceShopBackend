@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"tester\",\r\n    \"password\": \"tester123\",\r\n    \"balance\": 99999.99\r\n}",
+							"raw": "{\r\n    \"name\": \"tester name\",\r\n    \"username\": \"usertester\",\r\n    \"password\": \"tester123\",\r\n    \"balance\": 99999.99\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

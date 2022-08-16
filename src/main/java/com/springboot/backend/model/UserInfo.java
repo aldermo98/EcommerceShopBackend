@@ -17,6 +17,8 @@ public class UserInfo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	private Long userId;
+	
 	@Column(nullable = false)
 	private String name;
 	
@@ -27,15 +29,17 @@ public class UserInfo {
 	private String securityAnswer; 
 
 	private LocalDate passwordLastReset; 
+	
 
 	public UserInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserInfo(long id, String name, String username, String password, String role) {
+	public UserInfo(long id, Long userId, String name, String username, String password, String role) {
 		super();
 		this.id = id;
+		this.userId = userId;
 		this.name = name;
 		this.username = username;
 		this.password = password;
@@ -54,6 +58,13 @@ public class UserInfo {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {

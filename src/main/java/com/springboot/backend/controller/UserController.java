@@ -73,6 +73,7 @@ public class UserController {
 			 vendor.setSecurityAnswer(info.getSecurityAnswer());
 			vendorRepository.save(vendor);
 		 }
+		 
 	}
 	@GetMapping("/login") //username/password
 	public UserInfoDto login(Principal principal) {
@@ -81,6 +82,7 @@ public class UserController {
 		UserInfo info = userRepository.getbyUsername(username);
 		UserInfoDto dto = new UserInfoDto();
 		dto.setId(info.getId());
+		dto.setUserId(info.getUserId());
 		dto.setName(info.getName());
 		dto.setUsername(info.getUsername());
 		dto.setRole(info.getRole());

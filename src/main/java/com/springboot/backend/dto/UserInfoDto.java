@@ -2,6 +2,7 @@ package com.springboot.backend.dto;
 
 public class UserInfoDto {
 	private Long id;
+	private Long userId;
 	private String username;
 	private String role;
 	private String name;
@@ -12,6 +13,14 @@ public class UserInfoDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
