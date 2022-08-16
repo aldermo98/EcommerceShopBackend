@@ -34,6 +34,24 @@ public class Customer {
 	
 	private LocalDate passwordLastReset;
 
+	
+	
+	public Customer(Long id, String name, String username, String password, double balance, String securityQuestion,
+			String securityAnswer, LocalDate passwordLastReset) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.balance = balance;
+		this.securityQuestion = securityQuestion;
+		this.securityAnswer = securityAnswer;
+		this.passwordLastReset = passwordLastReset;
+	}
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Long getId() {
 		return id;
 	}

@@ -22,60 +22,65 @@ import com.springboot.backend.repository.CustomerRepository;
 import com.springboot.backend.repository.VendorRepository;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200/"}) //changes based on angular port
+@CrossOrigin(origins = { "http://localhost:4200/" }) // changes based on angular port
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private VendorRepository vendorRepository;
-	
+
 	@Autowired
-	private PasswordEncoder passwordEncoder; 
+	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/user")
 	public void postUser(@RequestBody UserDto userDto) {
-		 String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials())); 
-		 String username = str.split("@%")[0];
-		 String password = str.split("@%")[1];
+		String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials()));
+		String username = str.split("@%")[0];
+		String password = str.split("@%")[1];
 
-		 UserInfo info = new UserInfo(); 
-		 info.setName(userDto.getName());
-		 info.setPassword(passwordEncoder.encode(password));
-		 info.setUsername(username);
-		 info.setPasswordLastReset(LocalDate.now());
-		 info.setSecurityQuestion(userDto.getSecurityQuestion());
-		 info.setSecurityAnswer(userDto.getSecurityAnswer());
-		 info.setRole(userDto.getRole());
-		 userRepository.save(info); 
-		 
-		 if(info.getRole().equalsIgnoreCase("customer")){
-			 Customer customer = new Customer();
-			 customer.setName(info.getName());
-			 customer.setPassword(info.getPassword());
-			 customer.setUsername(info.getUsername());
-			 customer.setPasswordLastReset(info.getPasswordLastReset());
-			 customer.setSecurityQuestion(info.getSecurityQuestion());
-			 customer.setSecurityAnswer(info.getSecurityAnswer());
-			customerRepository.save(customer);
-		 }
-		 
-		 if(info.getRole().equalsIgnoreCase("vendor")){
-			 Vendor vendor = new Vendor();
-			 vendor.setVendorName(info.getName());
-			 vendor.setPassword(info.getPassword());
-			 vendor.setVendorName(info.getUsername());
-			 vendor.setPasswordLastReset(info.getPasswordLastReset());
-			 vendor.setSecurityQuestion(info.getSecurityQuestion());
-			 vendor.setSecurityAnswer(info.getSecurityAnswer());
-			vendorRepository.save(vendor);
-		 }
-		 
+		UserInfo info = new UserInfo();
+		info.setName(userDto.getName());
+		info.setPassword(passwordEncoder.encode(password));
+		info.setUsername(username);
+		info.setPasswordLastReset(LocalDate.now());
+		info.setSecurityQuestion(userDto.getSecurityQuestion());
+		info.setSecurityAnswer(userDto.getSecurityAnswer());
+		info.setRole(userDto.getRole());
+		userRepository.save(info);
+
+		if (info.getRole().equalsIgnoreCase("customer")) {
+			Customer customer = new Customer();
+			customer.setName(info.getName());
+			customer.setPassword(info.getPassword());
+			customer.setUsername(info.getUsername());
+			customer.setPasswordLastReset(info.getPasswordLastReset());
+			customer.setSecurityQuestion(info.getSecurityQuestion());
+			customer.setSecurityAnswer(info.getSecurityAnswer());
+			customer = customerRepository.save(customer);
+			info.setUserId(customer.getId());
+			userRepository.save(info);
+		}
+
+		if (info.getRole().equalsIgnoreCase("vendor")) {
+			Vendor vendor = new Vendor();
+			vendor.setVendorName(info.getName());
+			vendor.setPassword(info.getPassword());
+			vendor.setVendorName(info.getUsername());
+			vendor.setPasswordLastReset(info.getPasswordLastReset());
+			vendor.setSecurityQuestion(info.getSecurityQuestion());
+			vendor.setSecurityAnswer(info.getSecurityAnswer());
+			vendor = vendorRepository.save(vendor);
+			info.setUserId(vendor.getId());
+			userRepository.save(info);
+		}
+
 	}
-	@GetMapping("/login") //username/password
+
+	@GetMapping("/login") // username/password
 	public UserInfoDto login(Principal principal) {
 		System.out.println(principal);
 		String username = principal.getName();
@@ -86,6 +91,6 @@ public class UserController {
 		dto.setName(info.getName());
 		dto.setUsername(info.getUsername());
 		dto.setRole(info.getRole());
-		return dto; 
+		return dto;
 	}
 }
