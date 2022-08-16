@@ -4,8 +4,18 @@ public class ProductDto {
 	private Long id;
 	private String name;
 	private Double price;
-	private String cname;
+	private String category;
 	private Integer quantity;
+	private Integer vendor;
+	public Integer getVendor() {
+		return vendor;
+	}
+	public void setVendor(Integer vendor) {
+		this.vendor = vendor;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -30,11 +40,11 @@ public class ProductDto {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public String getCname() {
-		return cname;
+	public String getCategory() {
+		return category;
 	}
 	public void setCname(String cname) {
-		this.cname = cname;
+		this.category = cname;
 	}
 	
 	

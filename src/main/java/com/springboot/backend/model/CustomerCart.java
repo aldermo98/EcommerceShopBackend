@@ -19,23 +19,43 @@ public class CustomerCart {
 	@OneToOne
 	private Customer customer;
 	
-	@OneToMany
-	private List<Product> products;
+	@OneToOne
+	private Product product;
+	
+	private int quantity;
 	
 	private double totalPrice;
 	
 	
+	public CustomerCart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CustomerCart(Long id, Customer customer, Product product, int quantity, double totalPrice) {
+		super();
+		this.id = id;
+		this.customer = customer;
+		this.product = product;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Product> getProducts() {
-		return products;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public Product getProduct() {
+		return product;
 	}
 	public double getTotalPrice() {
 		return totalPrice;
