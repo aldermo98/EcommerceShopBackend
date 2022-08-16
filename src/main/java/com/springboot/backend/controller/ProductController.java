@@ -117,7 +117,17 @@ public class ProductController {
 		//Vendor vendor = optionalV.get();
 		
 		/*  Attach category and vendor to the product*/
+<<<<<<< HEAD
+		
+		Optional<Category> optionalCat = categoryRepository.findById(cid);
+		if(optionalCat.isPresent()) {
+			product.setCategory(optionalCat.get());
+		}else
+			throw new RuntimeException("invalid category id!!");
+		
+=======
 		product.setCategory(category);
+>>>>>>> 4fffd4c5fa84a93a82d44504397bb72be82d01ce
 		//product.setVendor(vendor);
 		
 		/* Save the product in DB*/
