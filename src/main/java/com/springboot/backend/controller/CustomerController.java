@@ -1,5 +1,6 @@
 package com.springboot.backend.controller;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.springboot.backend.model.Customer;
 import com.springboot.backend.repository.CustomerRepository;
@@ -31,6 +33,7 @@ public class CustomerController {
 	
 		return customerRepository.findAll();
 	}
+	
 	
 	@GetMapping("/customer/{id}")
 	public Customer getCustomerById(@PathVariable("id") Long id) {

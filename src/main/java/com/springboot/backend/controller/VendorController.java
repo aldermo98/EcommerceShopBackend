@@ -1,9 +1,9 @@
 package com.springboot.backend.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import com.springboot.backend.model.Orders;
 import com.springboot.backend.model.Product;
-
 import com.springboot.backend.model.Vendor;
 import com.springboot.backend.repository.VendorRepository;
 
@@ -30,6 +31,7 @@ public class VendorController {
 	public List<Vendor> getAllVendors() {
 		return vendorRepository.findAll();
 	}
+	
 	
 	@GetMapping("/vendor/{vendorId}")
 	public Vendor getVendorById(@PathVariable("vendorId") Long vendorId) {
@@ -70,7 +72,7 @@ public class VendorController {
 		List<Product> ret = new ArrayList<>();
 		ret = vendorRepository.getInventory(vendorId);
 		return (queryParam == null) ? 
-				ret : ret.stream().filter(p -> p.getProductName().toLowerCase().contains(queryParam.toLowerCase())).toList();
+				ret : ret.stream().filter(p -> p.getProductName().toLowerCase().contains(queryParam.toLowerCase())).collect(Collectors.toList());
 	}
 
 
