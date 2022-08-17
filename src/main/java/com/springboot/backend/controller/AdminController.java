@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.backend.dto.UserInfoDto;
 import com.springboot.backend.model.Admin;
 import com.springboot.backend.model.UserInfo;
 import com.springboot.backend.repository.AdminRepository;
@@ -73,6 +74,7 @@ public class AdminController {
 	@DeleteMapping("/admin/{adminId}")
 	public void deleteAdmin(@PathVariable("adminId") Long adminId) {
 		adminRepository.deleteById(adminId);
+		userRepository.deleteById(adminId+1);
 	}
 
 }
