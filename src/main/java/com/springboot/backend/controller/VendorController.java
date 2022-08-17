@@ -20,12 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.backend.model.Orders;
 import com.springboot.backend.model.Product;
 import com.springboot.backend.model.Vendor;
+import com.springboot.backend.repository.UserRepository;
 import com.springboot.backend.repository.VendorRepository;
 
 @RestController
 public class VendorController {
 	@Autowired
 	private VendorRepository vendorRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@GetMapping("/vendor/all")
 	public List<Vendor> getAllVendors() {
@@ -62,6 +66,7 @@ public class VendorController {
 	@DeleteMapping("/vendor/{vendorId}")
 	public void deleteVendor(@PathVariable("vendorId") Long vendorId) {
 		vendorRepository.deleteById(vendorId);
+		userRepository.deleteById(vendorId-1);
 	}
 	
 
