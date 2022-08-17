@@ -3,11 +3,14 @@ package com.springboot.backend.controller;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.dto.UserDto;
 import com.springboot.backend.dto.UserInfoDto;
+import com.springboot.backend.model.Admin;
 import com.springboot.backend.model.Customer;
 import com.springboot.backend.model.UserInfo;
 import com.springboot.backend.model.Vendor;
@@ -95,5 +99,15 @@ public class UserController {
 		dto.setUsername(info.getUsername());
 		dto.setRole(info.getRole());
 		return dto;
+	}
+	
+	@GetMapping("/user/all")
+	public List<UserInfo> getAllUsers() {
+		return userRepository.findAll();
+	}
+	
+	@DeleteMapping("/user/{userId}")
+	public void deleteUser(@PathVariable("userId") Long userId) {
+		userRepository.deleteById(userId);
 	}
 }
