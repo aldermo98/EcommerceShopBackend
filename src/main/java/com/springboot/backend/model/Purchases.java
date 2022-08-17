@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Purchases {
@@ -11,11 +12,15 @@ public class Purchases {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private int customerId;
+	@OneToOne
+	private Customer customer;
 	
-	private int customerCartId;
+	@OneToOne
+	private CustomerCart customerCart;
 	
 	private double totalPurchase;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -25,20 +30,20 @@ public class Purchases {
 		this.id = id;
 	}
 
-	public int getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public int getCustomerCartId() {
-		return customerCartId;
+	public CustomerCart getCustomerCart() {
+		return customerCart;
 	}
 
-	public void setCustomerCartId(int customerCartId) {
-		this.customerCartId = customerCartId;
+	public void setCustomerCart(CustomerCart customerCart) {
+		this.customerCart = customerCart;
 	}
 
 	public double getTotalPurchase() {
