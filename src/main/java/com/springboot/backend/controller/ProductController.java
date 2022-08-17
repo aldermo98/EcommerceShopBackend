@@ -92,30 +92,12 @@ public class ProductController {
 	public Product PostProduct(@RequestBody Product product, @PathVariable("cid") Long cid,
 			@PathVariable("vid") Long vid) {
 
-		/* Go to repo and fetch category by id */
-		Optional<Category> optional = categoryRepository.findById(cid);
-		if (!optional.isPresent())
-			throw new RuntimeException("Category ID is Invalid!!");
-		Category category = optional.get();
-
-		/* go to repo and fetch vendor by vid */
-		// Optional<Vendor> optionalV = vendorRepository.findById(vid);
-
-		if (!optional.isPresent())
-			throw new RuntimeException("Vendor ID is Invalid!!");
-
-		// Vendor vendor = optionalV.get();
-
-		/* Attach category and vendor to the product */
-
-		Optional<Category> optionalCat = categoryRepository.findById(cid);
-		if (optionalCat.isPresent()) {
-			product.setCategory(optionalCat.get());
-		} else
-			throw new RuntimeException("invalid category id!!");
-
-		product.setCategory(category);
-		// product.setVendor(vendor);
+		Category cat = new Category();
+		if(cid == -1) {
+			cat.setName(product.getCategory().getName());
+			categoryRepository.save(cat);
+			product.setCategory(cat);
+		}
 
 		/* Save the product in DB */
 		product.setVendorId(vid);

@@ -85,7 +85,7 @@ public class Product {
 	}
 
 
-	public Product(Long id, String productName, Double price, Integer quantity, Category category, Vendor vendor) {
+	public Product(Long id, String productName, Double price, Integer quantity, Category category, Long vendorId) {
 		super();
 		this.id = id;
 		this.productName = productName;

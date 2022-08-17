@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Orders {
@@ -15,41 +16,26 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable = true)
-	private Long vendorId;
-	
-	@Column(nullable = false)
-	private Long customerId;
+	@OneToOne
+	private Customer customer;
 		
-	@Column(nullable = false)
-	private String productName;
+	@OneToOne
+	private Product product;
 	
-	@Column(nullable = false)
-	private double price;
-	
-	@Column(nullable = false)
 	private Integer quantity;
 	
-	@Column(nullable = false)
-	private Boolean isApproved;
-	
-	@Column(nullable = false)
 	private LocalDate purchaseDate;
 
 	public Orders() {
 		super();
 	}
 
-	public Orders(Long id, Long vendorId, Long customerId, String productName, Double price, Integer quantity,
-			Boolean isApproved, LocalDate purchaseDate) {
+	public Orders(Long id, Customer customer, Product product, Integer quantity, LocalDate purchaseDate) {
 		super();
 		this.id = id;
-		this.vendorId = vendorId;
-		this.customerId = customerId;
-		this.productName = productName;
-		this.price = price;
+		this.customer = customer;
+		this.product = product;
 		this.quantity = quantity;
-		this.isApproved = isApproved;
 		this.purchaseDate = purchaseDate;
 	}
 
@@ -61,36 +47,20 @@ public class Orders {
 		this.id = id;
 	}
 
-	public Long getVendorId() {
-		return vendorId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setVendorId(Long vendorId) {
-		this.vendorId = vendorId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public Long getCustomerId() {
-		return customerId;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Integer getQuantity() {
@@ -101,14 +71,6 @@ public class Orders {
 		this.quantity = quantity;
 	}
 
-	public Boolean getIsApproved() {
-		return isApproved;
-	}
-
-	public void setIsApproved(Boolean isApproved) {
-		this.isApproved = isApproved;
-	}
-
 	public LocalDate getPurchaseDate() {
 		return purchaseDate;
 	}
@@ -117,10 +79,5 @@ public class Orders {
 		this.purchaseDate = purchaseDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Orders [id=" + id + ", vendorId=" + vendorId + ", customerId=" + customerId + ", productName="
-				+ productName + ", price=" + price + ", quantity=" + quantity + ", isApproved=" + isApproved
-				+ ", purchaseDate=" + purchaseDate + "]";
-	}
+	
 }

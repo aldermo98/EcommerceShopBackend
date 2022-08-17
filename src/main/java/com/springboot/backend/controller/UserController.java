@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.dto.UserDto;
@@ -37,7 +38,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/user")
-	public void postUser(@RequestBody UserDto userDto) {
+	public void postUser(@RequestBody UserDto userDto, @RequestParam("balance")Double bal) {
 		String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials()));
 		String username = str.split("@%")[0];
 		String password = str.split("@%")[1];
@@ -57,6 +58,7 @@ public class UserController {
 			customer.setName(info.getName());
 			customer.setPassword(info.getPassword());
 			customer.setUsername(info.getUsername());
+			customer.setBalance(bal);
 			customer.setPasswordLastReset(info.getPasswordLastReset());
 			customer.setSecurityQuestion(info.getSecurityQuestion());
 			customer.setSecurityAnswer(info.getSecurityAnswer());
@@ -70,6 +72,7 @@ public class UserController {
 			vendor.setVendorName(info.getName());
 			vendor.setPassword(info.getPassword());
 			vendor.setVendorName(info.getUsername());
+			vendor.setBalance(bal);
 			vendor.setPasswordLastReset(info.getPasswordLastReset());
 			vendor.setSecurityQuestion(info.getSecurityQuestion());
 			vendor.setSecurityAnswer(info.getSecurityAnswer());
