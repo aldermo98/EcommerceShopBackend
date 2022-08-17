@@ -50,14 +50,13 @@ public class CustomerCartController {
 				Optional<CustomerCart> optionalCC = customerCartRepository.getExistingRecord(cid, pid);
 				if(optionalCC.isPresent()) {
 					customerCart = optionalCC.get();
-					customerCart.setQuantity(customerCart.getQuantity() + 1);
-					customerCart.setTotalPrice(customerCart.getProduct().getPrice() * customerCart.getQuantity());
+					customerCart.setQuantity(customerCart.getQuantity() + 1);	
 				}else {
 					customerCart.setCustomer(optionalC.get());
 					customerCart.setProduct(optionalP.get());
 					customerCart.setQuantity(1);
-					customerCart.setTotalPrice(customerCart.getProduct().getPrice());
 				}
+				customerCart.setTotalPrice(customerCart.getProduct().getPrice() * customerCart.getQuantity());
 			}else
 				throw new RuntimeException("Invalid Product ID");
 		}else

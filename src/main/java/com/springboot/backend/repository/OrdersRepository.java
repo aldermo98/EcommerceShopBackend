@@ -9,10 +9,10 @@ import com.springboot.backend.model.Orders;
 
 public interface OrdersRepository extends JpaRepository<Orders, Long>{
 
-	@Query("select o from Orders o where o.customerId=?1")
+	@Query("select o from Orders o where o.customer.id=?1")
 	List<Orders> getOrdersByCustomer(Long customerId);
 	
-	@Query("select o from Orders o where o.vendorId=?1")
+	@Query("select o from Orders o where o.product.vendorId=?1")
 	List<Orders> getOrdersByVendor(Long vendorId);
 	
 }
