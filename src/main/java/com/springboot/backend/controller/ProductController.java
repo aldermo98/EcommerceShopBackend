@@ -80,6 +80,13 @@ public class ProductController {
 		return list;
 
 	}
+	@GetMapping("/product-single/{id}")
+	public Product getProductById(@PathVariable("id") Long id) {
+		Optional<Product> product = productRepository.findById(id);
+		if(product.isPresent())
+			return product.get();
+		throw new RuntimeException("Product with given id doesn't exists.");
+	}
 
 	@GetMapping("/product/category/{cid}")
 	public List<Product> getProductsByCategoryId(@PathVariable("cid") Long cid) {
