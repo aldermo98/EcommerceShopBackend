@@ -105,6 +105,12 @@ public class ProductController {
 			categoryRepository.save(cat);
 			product.setCategory(cat);
 		}
+		else {
+			Optional<Category> cat1 = categoryRepository.findById(cid);
+			if (cat1.isPresent()) {
+				product.setCategory(cat1.get());
+			}
+		}
 
 		/* Save the product in DB */
 		product.setVendorId(vid);
