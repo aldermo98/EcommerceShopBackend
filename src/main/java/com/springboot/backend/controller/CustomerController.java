@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.model.Customer;
 import com.springboot.backend.repository.CustomerRepository;
+import com.springboot.backend.repository.UserRepository;
 
 @RestController
 public class CustomerController {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@PostMapping("/customer")
 	public void postCustomer(@RequestBody Customer customer) {
@@ -69,6 +73,7 @@ public class CustomerController {
 	@DeleteMapping("/customer/{id}")
 	public void deleteCustomer(@PathVariable("id") Long id) {
 		customerRepository.deleteById(id);
+		userRepository.deleteById(id-1);
 	}
 	
 	//TO-DO
