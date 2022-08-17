@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.model.Admin;
+import com.springboot.backend.model.UserInfo;
 import com.springboot.backend.repository.AdminRepository;
+import com.springboot.backend.repository.UserRepository;
 
 @RestController
 public class AdminController {
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/admin/all")
 	public List<Admin> getAllAdmins() {
@@ -36,6 +45,17 @@ public class AdminController {
 	@PostMapping("/admin")
 	public void addVendor(@RequestBody Admin admin) {
 		adminRepository.save(admin);
+		
+		UserInfo info = new UserInfo();
+		info.setName(admin.getName());
+		info.setPassword(passwordEncoder.encode(admin.getPassword()));
+		info.setUsername(admin.getUsername());
+		info.setPasswordLastReset(admin.getPasswordLastReset());
+		info.setSecurityQuestion(admin.getSecurityQuestion());
+		info.setSecurityAnswer(admin.getSecurityAnswer());		
+		info.setUserId(admin.getId());
+		info.setRole("admin");
+		userRepository.save(info);
 	}
 	
 	@PutMapping("/admin/{adminId}")
